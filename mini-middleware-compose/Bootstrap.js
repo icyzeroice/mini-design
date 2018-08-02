@@ -11,6 +11,12 @@ module.exports = class Bootstrap {
 
   constructor() {
     this.middlewareList = []
+    this.data = ''
+  }
+
+  load(data) {
+    this.data = data
+    return this
   }
   
   /**
@@ -32,8 +38,8 @@ module.exports = class Bootstrap {
    * Run all the middleware in order
    * @param {Function} callback 
    */
-  run(data) {
-    compose(this.middlewareList)(data)
+  run() {
+    compose(this.middlewareList)(this.data)
     return this
   }
 

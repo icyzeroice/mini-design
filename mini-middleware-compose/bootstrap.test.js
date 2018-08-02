@@ -6,28 +6,36 @@ bootstrap2 = new Bootstrap()
 test('Test bootstrap', () => {
   
   bootstrap
+
+    .load('load data 1')
     
     .add(function (data, nextMiddleware) {
+      
       console.log('middleware 1', data)
-      nextMiddleware()
-      console.log('after all the middleware')
-      return '111'
+      
+      nextMiddleware().then(temp => {
+        console.log('after all the middleware', temp)
+      })
+      
+      return 'return middleware 1 data'
     })
     
     .add(function (data, nextMiddleware) {
       console.log('middleware 2', data)
       nextMiddleware()
 
-      return '222'
+      return 'return middleware 2 data'
     })
 
-    .run('dddata')
+    .run()
 })
 
 
 test('Test bootstrap work flow', () => {
 
   bootstrap2
+
+    .load('test data1')
 
     .add((data, next) => {
       console.log('mid 1', data)
@@ -39,16 +47,18 @@ test('Test bootstrap work flow', () => {
       next()
     })
 
-    .run('res')
+    .run()
 
     .remove(1)
+
+    .load('test data2')
 
     .addAt(0, (data, next) => {
       console.log('mid3', data)
       next()
     })
 
-    .run('res2')
+    .run()
 
     .clear()
 
@@ -57,6 +67,6 @@ test('Test bootstrap work flow', () => {
       next()
     })
 
-    .run('res3')
+    .run()
 
 })
