@@ -11,3 +11,6 @@ package-lock.json
 
 # Mac OS
 .DS_Store
+
+# temp files
+*.temp
